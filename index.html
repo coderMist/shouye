@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            background-image: url(./images/Default.jpg);
+        }
+        a{
+            position: absolute;
+            top: 10px;
+            right: 0;
+            text-decoration: none;
+            font-size: 25px;
+            color: #fff;
+
+        }
+        input{
+            text-align: center;
+            color: #fff;
+            border: 0;
+            background-color: rgba(0, 0, 0, 0);
+            width: 300px;
+            height: 50px;
+            font-size: 25px;
+            border-bottom: 2px solid #fff;
+        }
+        input::-webkit-input-placeholder{
+            color: #fff;
+        }
+        .box{
+            position: relative;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <input type="text" placeholder="最重要的小事...">
+        <a onclick="change()" href="#">√</a>
+    </div>
+    <script>
+        let flag = false
+        
+        let data = ''
+        function change(){
+            let input = document.querySelector('input')
+            let a = document.querySelector('a')
+
+            if(flag){
+                flag = false
+                data = ''
+                input.value = ''
+                a.innerText = '√'
+                input.style.borderBottom = '2px solid #fff'
+                // 在本地存储删除data数据 removeItem移除数据
+                window.localStorage.removeItem('shi',data)
+            }else{
+                flag = true
+                a.innerText = '×'
+                data = input.value
+                input.style.border = 'none'
+                // 存储data数据到本地存储
+                window.localStorage.setItem('shi',data)
+            }
+        }
+        let data1 = localStorage.getItem('shi')
+        if(data1){
+            document.querySelector('input').value = data1
+            change()
+        }
+    </script>
+</body>
+</html>
